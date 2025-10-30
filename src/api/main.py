@@ -1,6 +1,7 @@
 """
 FastAPI service for RAG Q&A over FastAPI documentation.
 """
+
 import os
 import sys
 from dotenv import load_dotenv
@@ -10,35 +11,45 @@ from openai import OpenAI
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional
 
+
 # Import our components
+
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
 from ingestion.indexer import DocumentIndexer
 from retrieval.hybrid_search import HybridSearcher
+from routing.query_router import QueryRouter
+
 
 load_dotenv()
 
 
 # Global state (loaded once at startup)
 searcher: Optional[HybridSearcher] = None
+router: Optional[QueryRouter] = None
 llm_client: Optional[OpenAI] = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Lifespan handler to initialize indexes and LLM client on startup.
-
-    This replaces the deprecated @app.on_event("startup") handler.
     """
-    global searcher, llm_client
+    Lifespan handler to initialize indexes and LLM client on startup.
+    This replaces the deprecated @app.on_event("startup") handler.
+
+    Load indexes and initialize the HybridSearcher and LLM client.
+    """
+    global searcher, router, llm_client
 
     print("Loading indexes...")
     indexer = DocumentIndexer()
     faiss_index, bm25_index, chunks = indexer.load_indexes()
 
     print("Initializing searcher...")
-    searcher = HybridSearcher(faiss_index, bm25_index, chunks)
+    searcher = HybridSearcher(faiss_index, bm25_index, chunks, use_reranking=True)
+
+    print("Initializing query router...")
+    router = QueryRouter(model="gpt-4o-mini")  # Use a fast/cheap model for classification
 
     print("Initializing LLM client...")
     api_key = os.getenv("OPENAI_API_KEY")
@@ -46,10 +57,9 @@ async def lifespan(app: FastAPI):
         raise ValueError("OPENAI_API_KEY not found")
     llm_client = OpenAI(api_key=api_key)
 
-    print("✓ Service ready!")
+    print("✓ Service ready with agentic routing!")
 
-    # Yield control back to FastAPI to start serving requests
-    yield
+    yield # <-- Yield control back to FastAPI to start serving requests
 
     # Optional shutdown logic can go here (close clients, flush metrics, etc.)
 
@@ -58,7 +68,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="FastAPI Docs RAG Service",
     description="Intelligent Q&A over FastAPI documentation using RAG",
-    version="0.1.0",
+    version="0.2.0",
     lifespan=lifespan,
 )
 
@@ -79,16 +89,19 @@ class QueryResponse(BaseModel):
     query: str
     answer: str
     sources: List[Source]
-    retrieval_method: str = "hybrid"
+    query_type: str
+    retrieval_stategy: str
+    reasoning:str
 
 
-def generate_answer(query: str, context_chunks: List[Dict]) -> str:
+def generate_answer(query: str, context_chunks: List[Dict], query_type: str) -> str:
     """
     Generate answer using LLM with retrieved context.
     
     Args:
         query: User question
         context_chunks: Retrieved document chunks
+        query_type: Type of the query for prompt adaptation
     
     Returns:
         Generated answer with citations
@@ -105,6 +118,14 @@ def generate_answer(query: str, context_chunks: List[Dict]) -> str:
         context_parts.append(f"[{i}] From {source}:\n{content}\n")
     
     context = "\n".join(context_parts)
+
+    # Adapt prompt based on query type
+    if query_type == "MULTI_PART":
+        instruction_note = "This is a multi-part question. Address each part clearly."
+    elif query_type == "COMPLEX":
+        instruction_note = "This is an exploratory question. Provide comprehensive guidance."
+    else:
+        instruction_note = "Provide a direct, focused answer."
     
     # Create prompt
     prompt = f"""
@@ -121,6 +142,7 @@ Instructions:
 3. If the context doesn't contain enough information, say so
 4. Keep answers concise but complete
 5. Include code examples if they appear in the context
+6. {instruction_note}
 
 Answer:"""
 
@@ -145,8 +167,10 @@ Answer:"""
 async def root():
     """Health check endpoint."""
     return {
-        "service": "FastAPI Docs RAG",
+        "service": "FastAPI Docs RAG with Agentic Routing",
         "status": "running",
+        "version": "0.2.0",
+        "features": ["hybrid_search", "query_routing", "adaptive_retrieval"],
         "docs": "/docs"
     }
 
@@ -154,26 +178,56 @@ async def root():
 @app.post("/query", response_model=QueryResponse)
 async def query_docs(request: QueryRequest):
     """
-    Answer questions about FastAPI documentation.
+    Answer questions about FastAPI documentation with intelligent routing.
+    
+    The system automatically analyzes your query and selects the optimal
+    retrieval strategy:
+    - SIMPLE: Direct hybrid search
+    - COMPLEX: HyDE preprocessing for better vocabulary matching
+    - MULTI_PART: Query decomposition (coming soon)
     
     Args:
         request: Query request with question and optional parameters
     
     Returns:
-        Answer with sources and citations
+        Answer with sources, query type, and routing information
     """
-    if searcher is None or llm_client is None:
+    if searcher is None or router is None or llm_client is None:
         raise HTTPException(status_code=503, detail="Service not initialized")
     
     try:
+
+        # Route the query
+        query_type, strategy, config = router.route_query(request.query)
+
+        TESTING_WITHOUT_HYDE = False  # Set to True to bypass HyDE during testing
+
         # Retrieve relevant chunks
-        results = searcher.hybrid_search(
-            query=request.query,
-            top_k=request.top_k
-        )
+        if config["use_hyde"] and not TESTING_WITHOUT_HYDE:
+            # COMPLEX queries: use HyDE preprocessing
+            if searcher.use_reranking:
+                print("[API] Using HyDE search with reranking for complex query")
+                results = searcher.hyde_search_with_reranking(
+                    query=request.query,
+                    top_k=request.top_k,
+                    retrieve_k=50
+                )
+            else:
+                print("[API] Using HyDE search for complex query")
+                results = searcher.hyde_search(
+                    query=request.query,
+                    top_k=request.top_k
+                )
+        else:
+            # SIMPLE queries: direct hybrid search
+            print("[API] Using direct hybrid search")
+            results = searcher.hybrid_search(
+                query=request.query,
+                top_k=request.top_k
+            )
         
         # Generate answer
-        answer = generate_answer(request.query, results)
+        answer = generate_answer(request.query, results, query_type.value)
         
         # Format sources
         sources = [
@@ -184,11 +238,17 @@ async def query_docs(request: QueryRequest):
             )
             for chunk in results
         ]
+
+        # Generate reasoning
+        classification = router.classify_query(request.query)
         
         return QueryResponse(
             query=request.query,
             answer=answer,
-            sources=sources
+            sources=sources,
+            query_type=query_type.value,
+            retrieval_stategy=strategy,
+            reasoning = classification.reasoning
         )
     
     except Exception as e:

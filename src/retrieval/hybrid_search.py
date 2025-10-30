@@ -4,9 +4,13 @@ Uses Reciprocal Rank Fusion to merge results.
 """
 import numpy as np
 from typing import List, Dict, Tuple
+
 import faiss
 from rank_bm25 import BM25Okapi
 from openai import OpenAI
+
+from retrieval.reranker import CrossEncoderReranker
+
 import os
 from dotenv import load_dotenv
 
@@ -23,7 +27,8 @@ class HybridSearcher:
         faiss_index: faiss.Index,
         bm25_index: BM25Okapi,
         chunks: List[Dict],
-        embedding_model: str = "text-embedding-3-small"
+        embedding_model: str = "text-embedding-3-small",
+        use_reranking: bool = True
     ):
         self.faiss_index = faiss_index
         self.bm25_index = bm25_index
@@ -41,7 +46,14 @@ class HybridSearcher:
             chunk['content'].lower().split()
             for chunk in chunks
         ]
-    
+
+        # Initialize reraker if enabled
+        self.use_reranking = use_reranking
+        self.reranker = None
+        if self.use_reranking:
+            print("[Searcher] Initializing CrossEncoderReranker...")
+            self.reranker = CrossEncoderReranker()
+
     def embed_query(self, query: str) -> np.ndarray:
         """Generate embedding for a query string."""
         response = self.client.embeddings.create(
@@ -168,18 +180,18 @@ class HybridSearcher:
         
         return sorted_docs
     
-    def hybrid_search(
+    def _fuse_and_rank(
         self,
         query: str,
-        top_k: int = 5,
-        bm25_k: int = 25,
-        vector_k: int = 25
+        top_k: int,
+        bm25_k: int,
+        vector_k: int
     ) -> List[Dict]:
         """
-        Perform hybrid search combining BM25 and vector search.
+        Helper method to perform retrieval, fusion, and ranking.
         
         Args:
-            query: Search query
+            query: Search query (or hypothetical document)
             top_k: Number of final results to return
             bm25_k: Number of results to retrieve from BM25
             vector_k: Number of results to retrieve from vector search
@@ -202,7 +214,147 @@ class HybridSearcher:
             results.append(chunk)
         
         return results
+    
+    def hybrid_search(
+        self,
+        query: str,
+        top_k: int = 5,
+        bm25_k: int = 25,
+        vector_k: int = 25
+    ) -> List[Dict]:
+        """
+        Perform hybrid search combining BM25 and vector search.
+        
+        Args:
+            query: Search query
+            top_k: Number of final results to return
+            bm25_k: Number of results to retrieve from BM25
+            vector_k: Number of results to retrieve from vector search
+        
+        Returns:
+            List of chunk dicts with relevance scores
+        """
+        return self._fuse_and_rank(query, top_k, bm25_k, vector_k)
+    
+    def hyde_search(
+        self,
+        query: str,
+        top_k: int = 5,
+        bm25_k: int = 25,
+        vector_k: int = 25
+    ) -> List[Dict]:
+        """
+        Perform hybrid search using HyDE (Hypothetical Document Embeddings).
 
+        Generates a hypothetical answer, then searches with that instead of the query.
+        Better for vague/exploratory queries.
+
+        Args:
+            query: Search query
+            top_k: Number of final results to return
+            bm25_k: Number of results to retrieve from BM25
+            vector_k: Number of results to retrieve from vector search
+
+        Returns:
+            List of chunk dicts with relevance scores
+        """
+        from retrieval.hyde import HyDEGenerator
+
+        # Generate hypothetical answer
+        hyde_gen = HyDEGenerator()
+        hypothetical_answer = hyde_gen.generate_hypothetical_answer(query)
+
+        # Search using the hypothetical answer instead of the query
+        print(f"[HyDE Search] Using hypothetical answer for retrieval.")
+
+        return self._fuse_and_rank(hypothetical_answer, top_k, bm25_k, vector_k)
+    
+    def hybrid_search_with_reranking(
+        self,
+        query: str,
+        top_k: int = 5,
+        retrieve_k: int = 50  # Retrieve more, then rerank to top_k
+    ) -> List[Dict]:
+        """
+        Hybrid search with cross-encoder reranking.
+        
+        Two-stage retrieval:
+        1. Fast hybrid search retrieves top-50 candidates
+        2. Slow cross-encoder reranks to select best top-5
+        
+        Args:
+            query: Search query
+            top_k: Number of final results after reranking
+            retrieve_k: Number of candidates to retrieve before reranking
+        
+        Returns:
+            List of reranked chunk dicts
+        """
+        # Stage 1: Retrieve candidates with hybrid search
+        candidates = self.hybrid_search(
+            query=query,
+            top_k=retrieve_k
+        )
+        
+        # Stage 2: Rerank candidates
+        if self.use_reranking and self.reranker and len(candidates) > 0:
+            print(f"[Search] Reranking {len(candidates)} candidates to top-{top_k}")
+            reranked = self.reranker.rerank(query, candidates, top_k=top_k)
+            return reranked
+        else:
+            # No reranking - just return top-k from hybrid search
+            return candidates[:top_k]
+    
+    def hyde_search_with_reranking(
+        self,
+        query: str,
+        top_k: int = 5,
+        retrieve_k: int = 50
+    ) -> List[Dict]:
+        """
+        HyDE search with cross-encoder reranking.
+        
+        Args:
+            query: Search query
+            top_k: Number of final results after reranking
+            retrieve_k: Number of candidates to retrieve before reranking
+        
+        Returns:
+            List of reranked chunk dicts
+        """
+
+        # from retrieval.hyde import HyDEGenerator
+        
+        # # Generate hypothetical answer
+        # hyde_gen = HyDEGenerator()
+        # hypothetical_answer = hyde_gen.generate_hypothetical_answer(query)
+        
+        # # Retrieve candidates using hypothetical answer
+        # print(f"[HyDE Search] Retrieving {retrieve_k} candidates")
+        # bm25_results = self.bm25_search(hypothetical_answer, top_k=retrieve_k//2)
+        # vector_results = self.vector_search(hypothetical_answer, top_k=retrieve_k//2)
+        # fused_results = self.reciprocal_rank_fusion([bm25_results, vector_results])
+        
+        # candidates = []
+        # for doc_id, rrf_score in fused_results[:retrieve_k]:
+        #     chunk = self.chunks[doc_id].copy()
+        #     chunk['relevance_score'] = rrf_score
+        #     candidates.append(chunk)
+
+        candidates = self.hyde_search(query, top_k, retrieve_k // 2)
+        
+        
+        # Rerank using ORIGINAL query (not hypothetical answer)
+        # This is important - we want relevance to the actual question
+        if self.use_reranking and self.reranker and len(candidates) > 0:
+            print(f"[HyDE Search] Reranking to top-{top_k}")
+            reranked = self.reranker.rerank(query, candidates, top_k=top_k)
+            return reranked
+        else:
+            return candidates[:top_k]
+    
+
+    
 
 # Test the hybrid searcher
 if __name__ == "__main__":
