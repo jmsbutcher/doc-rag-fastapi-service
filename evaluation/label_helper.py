@@ -44,7 +44,11 @@ def search_for_labeling(query: str, top_k: int = 30):
         print(f"[{i}] Chunk ID: {result['chunk_id']}")
         print(f"Source: {result['source']}")
         print(f"Relevance Score: {result['relevance_score']:.4f}")
-        print(f"\nContent:\n{result['content'][:400]}...")
+        #print(f"\nContent:\n{result['content'][:1000]}...")
+        formatted_content = result['content'].replace("\n\n", "__n__")
+        formatted_content = formatted_content.replace("\n", " ")
+        formatted_content = formatted_content.replace("__n__", "\n")
+        print(f"\nContent:\n{formatted_content}")
         print(f"\n{'='*80}")
         
         # Ask for label

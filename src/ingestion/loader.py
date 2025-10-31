@@ -1,7 +1,6 @@
 """
 Load FastAPI documentation from the web.
 """
-import os
 import requests
 from pathlib import Path
 from typing import List, Dict

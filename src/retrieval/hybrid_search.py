@@ -9,9 +9,13 @@ import faiss
 from rank_bm25 import BM25Okapi
 from openai import OpenAI
 
+import os
+import sys
+# Add src directory to path so we can import from src package
+# This allows running the script from the top-level directory
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 from src.retrieval.reranker import CrossEncoderReranker
 
-import os
 from dotenv import load_dotenv
 
 load_dotenv()

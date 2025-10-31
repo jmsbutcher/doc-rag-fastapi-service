@@ -259,6 +259,741 @@
           "relevance_label": 0
         }
       ]
+    },
+    {
+      "query": "How do I validate request bodies?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "advanced\\path-operation-advanced-configuration.md_2",
+          "source": "advanced\\path-operation-advanced-configuration.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\body.md_0",
+          "source": "tutorial\\body.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "how-to\\custom-request-and-route.md_1",
+          "source": "how-to\\custom-request-and-route.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_2",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\body.md_1",
+          "source": "tutorial\\body.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "how-to\\custom-request-and-route.md_0",
+          "source": "how-to\\custom-request-and-route.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\testing.md_1",
+          "source": "tutorial\\testing.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\body.md_2",
+          "source": "tutorial\\body.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_3",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        }
+      ]
+    },
+    {
+      "query": "My API becomes slow when many users connect at the same time",
+      "labeled_chunks": [
+        {
+          "chunk_id": "index.md_0",
+          "source": "index.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\websockets.md_1",
+          "source": "advanced\\websockets.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_3",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_1",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_2",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\generate-clients.md_1",
+          "source": "advanced\\generate-clients.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\generate-clients.md_3",
+          "source": "advanced\\generate-clients.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_0",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\openapi-webhooks.md_0",
+          "source": "advanced\\openapi-webhooks.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_1",
+          "source": "index.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "index.md_4",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\events.md_0",
+          "source": "advanced\\events.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_4",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "fastapi-cli.md_1",
+          "source": "fastapi-cli.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_5",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_3",
+          "source": "deployment\\docker.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_3",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_3",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        }
+      ]
+    },
+    {
+      "query": "What's the best way to handle errors in production?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "deployment\\concepts.md_3",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_5",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_2",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_2",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_0",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\docker.md_8",
+          "source": "deployment\\docker.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\docker.md_10",
+          "source": "deployment\\docker.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_1",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\https.md_4",
+          "source": "deployment\\https.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_9",
+          "source": "deployment\\docker.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_1",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\generate-clients.md_3",
+          "source": "advanced\\generate-clients.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "fastapi-cli.md_1",
+          "source": "fastapi-cli.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\middleware.md_0",
+          "source": "advanced\\middleware.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_6",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_2",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\security\\http-basic-auth.md_1",
+          "source": "advanced\\security\\http-basic-auth.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_2",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_4",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 1
+        }
+      ]
+    },
+    {
+      "query": "My application needs to send emails after processing requests, how should I structure this?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "deployment\\https.md_3",
+          "source": "deployment\\https.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\events.md_0",
+          "source": "advanced\\events.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\openapi-webhooks.md_0",
+          "source": "advanced\\openapi-webhooks.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_2",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\openapi-callbacks.md_0",
+          "source": "advanced\\openapi-callbacks.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\https.md_2",
+          "source": "deployment\\https.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "how-to\\custom-request-and-route.md_1",
+          "source": "how-to\\custom-request-and-route.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\testing.md_1",
+          "source": "tutorial\\testing.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_5",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_3",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_3",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "how-to\\custom-docs-ui-assets.md_1",
+          "source": "how-to\\custom-docs-ui-assets.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_6",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_1",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_4",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\async-tests.md_0",
+          "source": "advanced\\async-tests.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_2",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_5",
+          "source": "deployment\\docker.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\testing.md_0",
+          "source": "tutorial\\testing.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\docker.md_9",
+          "source": "deployment\\docker.md",
+          "relevance_label": 1
+        }
+      ]
+    },
+    {
+      "query": "How do I make my FastAPI application more secure?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "index.md_1",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\index.md_0",
+          "source": "deployment\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_0",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "fastapi-cli.md_1",
+          "source": "fastapi-cli.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\index.md_0",
+          "source": "tutorial\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_3",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_5",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "project-generation.md_0",
+          "source": "project-generation.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\behind-a-proxy.md_0",
+          "source": "advanced\\behind-a-proxy.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_0",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_4",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_5",
+          "source": "deployment\\docker.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\index.md_1",
+          "source": "tutorial\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "how-to\\graphql.md_0",
+          "source": "how-to\\graphql.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_5",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_0",
+          "source": "deployment\\docker.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "help-fastapi.md_2",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\https.md_0",
+          "source": "deployment\\https.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "index.md_4",
+          "source": "index.md",
+          "relevance_label": 2
+        }
+      ]
+    },
+    {
+      "query": "What is the difference between path parameters and query parameters?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "tutorial\\query-params.md_0",
+          "source": "tutorial\\query-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\query-params.md_1",
+          "source": "tutorial\\query-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\body.md_2",
+          "source": "tutorial\\body.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\query-params.md_2",
+          "source": "tutorial\\query-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_0",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\body.md_1",
+          "source": "tutorial\\body.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_1",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "features.md_1",
+          "source": "features.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_0",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_0",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_2",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_2",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "release-notes.md_41",
+          "source": "release-notes.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "deployment\\https.md_2",
+          "source": "deployment\\https.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\openapi-callbacks.md_2",
+          "source": "advanced\\openapi-callbacks.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "release-notes.md_101",
+          "source": "release-notes.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "release-notes.md_42",
+          "source": "release-notes.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_1",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "how-to\\general.md_0",
+          "source": "how-to\\general.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\path-operation-advanced-configuration.md_0",
+          "source": "advanced\\path-operation-advanced-configuration.md",
+          "relevance_label": 0
+        }
+      ]
+    },
+    {
+      "query": "What are the differences between @app.get() and @app.post() and when should I use each?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\index.md_0",
+          "source": "deployment\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\concepts.md_6",
+          "source": "deployment\\concepts.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\response-model.md_0",
+          "source": "tutorial\\response-model.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\generate-clients.md_1",
+          "source": "advanced\\generate-clients.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\openapi-webhooks.md_0",
+          "source": "advanced\\openapi-webhooks.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\testing.md_1",
+          "source": "tutorial\\testing.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "index.md_1",
+          "source": "index.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_2",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\openapi-callbacks.md_2",
+          "source": "advanced\\openapi-callbacks.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\openapi-webhooks.md_1",
+          "source": "advanced\\openapi-webhooks.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_0",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_3",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\https.md_1",
+          "source": "deployment\\https.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_0",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_3",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "how-to\\migrate-from-pydantic-v1-to-pydantic-v2.md_0",
+          "source": "how-to\\migrate-from-pydantic-v1-to-pydantic-v2.md",
+          "relevance_label": 0
+        }
+      ]
+    },
+    {
+      "query": "What is OAuth2 and how do I implement it in FastAPI?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_5",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_0",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\openapi-webhooks.md_0",
+          "source": "advanced\\openapi-webhooks.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_1",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "features.md_1",
+          "source": "features.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "index.md_0",
+          "source": "index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_4",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "help-fastapi.md_2",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        }
+      ]
     }
   ]
 }

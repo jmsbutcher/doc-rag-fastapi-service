@@ -142,8 +142,18 @@ rag-fastapi-docs/
 ```
 
 
+## Setup
+
+1. Create virtual environment
+2. Install dependencies
+3. Download documents, chunk documents, embed documents, and create indexes (This shouldn't have to be done manually, right? maybe fix this) Run: `python src/ingestion/loader.py` then `python src/ingestion/indexer.py`
+
+
 ### Semanitc Chunking
 
 Implemented semantic chunking with 100-token overlap to prevent information loss at boundaries. Trade-off: some chunks start mid-sentence, but retrieval accuracy improved significantly (see evaluation metrics).
+
+
+
 
 
