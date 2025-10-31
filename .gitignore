@@ -15,3 +15,6 @@ wheels/
 # Data
 data/raw/
 data/indexes/
+
+# Other
+.github/
