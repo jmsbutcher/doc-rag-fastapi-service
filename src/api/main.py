@@ -220,11 +220,19 @@ async def query_docs(request: QueryRequest):
                 )
         else:
             # SIMPLE queries: direct hybrid search
-            print("[API] Using direct hybrid search")
-            results = searcher.hybrid_search(
-                query=request.query,
-                top_k=request.top_k
-            )
+            if searcher.use_reranking:
+                print("[API] Using direct hybrid search with reranking")
+                results = searcher.hybrid_search_with_reranking(
+                    query=request.query,
+                    top_k=request.top_k,
+                    retrieve_k=50
+                )
+            else:
+                print("[API] Using direct hybrid search")
+                results = searcher.hybrid_search(
+                    query=request.query,
+                    top_k=request.top_k
+                )
         
         # Generate answer
         answer = generate_answer(request.query, results, query_type.value)
