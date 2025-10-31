@@ -1,0 +1,264 @@
+{
+  "queries": [
+    {
+      "query": "What are path parameters in FastAPI?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "tutorial\\body.md_1",
+          "source": "tutorial\\body.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\query-params.md_0",
+          "source": "tutorial\\query-params.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\body.md_2",
+          "source": "tutorial\\body.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\query-params.md_1",
+          "source": "tutorial\\query-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_1",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_0",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\response-model.md_0",
+          "source": "tutorial\\response-model.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_2",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_0",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_3",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "release-notes.md_160",
+          "source": "release-notes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\path-params.md_3",
+          "source": "tutorial\\path-params.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "how-to\\configure-swagger-ui.md_0",
+          "source": "how-to\\configure-swagger-ui.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_2",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_1",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "features.md_1",
+          "source": "features.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\sub-applications.md_1",
+          "source": "advanced\\sub-applications.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "release-notes.md_127",
+          "source": "release-notes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\behind-a-proxy.md_1",
+          "source": "advanced\\behind-a-proxy.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "release-notes.md_121",
+          "source": "release-notes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\behind-a-proxy.md_3",
+          "source": "advanced\\behind-a-proxy.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "release-notes.md_142",
+          "source": "release-notes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "deployment\\docker.md_3",
+          "source": "deployment\\docker.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\path-operation-advanced-configuration.md_0",
+          "source": "advanced\\path-operation-advanced-configuration.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\response-model.md_1",
+          "source": "tutorial\\response-model.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\behind-a-proxy.md_2",
+          "source": "advanced\\behind-a-proxy.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\first-steps.md_0",
+          "source": "tutorial\\first-steps.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_0",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_2",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\openapi-callbacks.md_1",
+          "source": "advanced\\openapi-callbacks.md",
+          "relevance_label": 0
+        }
+      ]
+    },
+    {
+      "query": "How do I use dependency injection?",
+      "labeled_chunks": [
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_0",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_0",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\testing-dependencies.md_0",
+          "source": "advanced\\testing-dependencies.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_2",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_1",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_4",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\advanced-dependencies.md_1",
+          "source": "advanced\\advanced-dependencies.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_2",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "deployment\\index.md_0",
+          "source": "deployment\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\security\\oauth2-scopes.md_3",
+          "source": "advanced\\security\\oauth2-scopes.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_0",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_2",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_1",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "help-fastapi.md_4",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "tutorial\\dependencies\\index.md_3",
+          "source": "tutorial\\dependencies\\index.md",
+          "relevance_label": 2
+        },
+        {
+          "chunk_id": "release-notes.md_100",
+          "source": "release-notes.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "help-fastapi.md_2",
+          "source": "help-fastapi.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "how-to\\graphql.md_0",
+          "source": "how-to\\graphql.md",
+          "relevance_label": 0
+        },
+        {
+          "chunk_id": "advanced\\settings.md_2",
+          "source": "advanced\\settings.md",
+          "relevance_label": 1
+        },
+        {
+          "chunk_id": "advanced\\dataclasses.md_0",
+          "source": "advanced\\dataclasses.md",
+          "relevance_label": 0
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@ import faiss
 from rank_bm25 import BM25Okapi
 from openai import OpenAI
 
-from retrieval.reranker import CrossEncoderReranker
+from src.retrieval.reranker import CrossEncoderReranker
 
 import os
 from dotenv import load_dotenv
@@ -258,7 +258,7 @@ class HybridSearcher:
         Returns:
             List of chunk dicts with relevance scores
         """
-        from retrieval.hyde import HyDEGenerator
+        from src.retrieval.hyde import HyDEGenerator
 
         # Generate hypothetical answer
         hyde_gen = HyDEGenerator()
@@ -343,7 +343,7 @@ class HybridSearcher:
 
         candidates = self.hyde_search(query, top_k, retrieve_k // 2)
         
-        
+
         # Rerank using ORIGINAL query (not hypothetical answer)
         # This is important - we want relevance to the actual question
         if self.use_reranking and self.reranker and len(candidates) > 0:
@@ -360,9 +360,9 @@ class HybridSearcher:
 if __name__ == "__main__":
     import os
     import sys  
-    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
-    from ingestion.indexer import DocumentIndexer
+    from src.ingestion.indexer import DocumentIndexer
     
     print("Hybrid Search Test\n")
     
