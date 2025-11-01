@@ -6,7 +6,6 @@ from pathlib import Path
 import sys
 import os
 
-# Add src directory to path so we can import from src package
 # This allows running the script from the top-level directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 

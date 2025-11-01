@@ -142,6 +142,13 @@ rag-fastapi-docs/
 ```
 
 
+
+## Requirements
+
+Requires python 3.12
+
+
+
 ## Setup
 
 1. Create virtual environment
