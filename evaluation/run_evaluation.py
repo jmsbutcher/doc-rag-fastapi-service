@@ -137,7 +137,7 @@ def generate_report():
     report.append("| Metric | Baseline | +Reranking | +Routing | +HyDE | Best Improvement |\n")
     report.append("|--------|----------|------------|----------|-------|------------------|\n")
     
-    key_generation_metrics = ["faithfulness", "answer_relevancy", "context_relevancy"]
+    key_generation_metrics = ["faithfulness", "answer_relevancy"]
     
     for metric in key_generation_metrics:
         row_values = []
@@ -193,14 +193,13 @@ def generate_report():
     report.append("## Production Targets\n\n")
     report.append("According to 2025 RAG best practices:\n\n")
     report.append("**Retrieval Metrics:**\n")
-    report.append("- Recall@5: ≥0.80\n")
-    report.append("- Precision@5: ≥0.60\n")
-    report.append("- NDCG@10: ≥0.75\n")
-    report.append("- MRR: ≥0.70\n\n")
+    report.append("- Recall@5: >=0.80\n")
+    report.append("- Precision@5: >=0.60\n")
+    report.append("- NDCG@10: >=0.75\n")
+    report.append("- MRR: >=0.70\n\n")
     report.append("**Generation Metrics:**\n")
-    report.append("- Faithfulness: ≥0.95 (hallucination rate <5%)\n")
-    report.append("- Answer Relevancy: ≥0.85\n")
-    report.append("- Context Relevancy: ≥0.75\n\n")
+    report.append("- Faithfulness: >=0.95 (hallucination rate <5%)\n")
+    report.append("- Answer Relevancy: >=0.85\n")
     
     # Key Insights
     report.append("## Key Insights\n\n")
@@ -211,13 +210,13 @@ def generate_report():
         precision = retrieval_metrics["4_full"]["average_metrics"]["precision@5"]["mean"]
         
         if recall >= 0.80 and precision >= 0.60:
-            report.append("✓ **Retrieval metrics meet production targets**\n\n")
+            report.append("CHECK! **Retrieval metrics meet production targets**\n\n")
         else:
-            report.append("⚠ **Retrieval metrics below production targets**\n")
+            report.append("[!] **Retrieval metrics below production targets**\n")
             if recall < 0.80:
-                report.append(f"  - Recall@5: {recall:.3f} (target: ≥0.80)\n")
+                report.append(f"  - Recall@5: {recall:.3f} (target: >=0.80)\n")
             if precision < 0.60:
-                report.append(f"  - Precision@5: {precision:.3f} (target: ≥0.60)\n")
+                report.append(f"  - Precision@5: {precision:.3f} (target: >=0.60)\n")
             report.append("\n")
     
     if generation_metrics["4_full"]:
@@ -225,13 +224,13 @@ def generate_report():
         relevancy = generation_metrics["4_full"]["average_metrics"]["answer_relevancy"]["mean"]
         
         if faithfulness >= 0.95 and relevancy >= 0.85:
-            report.append("✓ **Generation metrics meet production targets**\n\n")
+            report.append("CHECK! **Generation metrics meet production targets**\n\n")
         else:
-            report.append("⚠ **Generation metrics below production targets**\n")
+            report.append("[!] **Generation metrics below production targets**\n")
             if faithfulness < 0.95:
-                report.append(f"  - Faithfulness: {faithfulness:.3f} (target: ≥0.95)\n")
+                report.append(f"  - Faithfulness: {faithfulness:.3f} (target: >=0.95)\n")
             if relevancy < 0.85:
-                report.append(f"  - Answer Relevancy: {relevancy:.3f} (target: ≥0.85)\n")
+                report.append(f"  - Answer Relevancy: {relevancy:.3f} (target: >=0.85)\n")
             report.append("\n")
     
     report.append("## Next Steps\n\n")
@@ -248,7 +247,7 @@ def generate_report():
     with open(report_path, 'w') as f:
         f.writelines(report)
     
-    print(f"\n✓ Report saved to {report_path}\n")
+    print(f"\nCHECK! Report saved to {report_path}\n")
     
     # Print to console
     print("\n" + "".join(report))
@@ -278,35 +277,35 @@ def main():
     input("Press Enter to start...")
     
     # Step 1: Run retrieval
-    if not run_step(
-        "1. Run Retrieval (All 4 Strategies)",
-        "evaluation/run_retrieval.py"
-    ):
-        print("\n✗ Failed at retrieval step")
-        return
+    # if not run_step(
+    #     "1. Run Retrieval (All 4 Strategies)",
+    #     "evaluation/run_retrieval.py"
+    # ):
+    #     print("\nX Failed at retrieval step")
+    #     return
     
-    # Step 2: Evaluate retrieval
-    if not run_step(
-        "2. Compute Retrieval Metrics",
-        "evaluation/retrieval_evaluator.py"
-    ):
-        print("\n✗ Failed at retrieval evaluation step")
-        return
+    # # Step 2: Evaluate retrieval
+    # if not run_step(
+    #     "2. Compute Retrieval Metrics",
+    #     "evaluation/retrieval_evaluator.py"
+    # ):
+    #     print("\nX Failed at retrieval evaluation step")
+    #     return
     
-    # Step 3: Run Q&A pipeline
-    if not run_step(
-        "3. Run Q&A Pipeline (All 4 Strategies)",
-        "evaluation/run_qa.py"
-    ):
-        print("\n✗ Failed at Q&A step")
-        return
+    # # Step 3: Run Q&A pipeline
+    # if not run_step(
+    #     "3. Run Q&A Pipeline (All 4 Strategies)",
+    #     "evaluation/run_qa.py"
+    # ):
+    #     print("\nX Failed at Q&A step")
+    #     return
     
     # Step 4: Evaluate generation with RAGAS
     if not run_step(
         "4. Compute Generation Metrics (RAGAS)",
         "evaluation/ragas_evaluator.py"
     ):
-        print("\n✗ Failed at generation evaluation step")
+        print("\nX Failed at generation evaluation step")
         return
     
     # Step 5: Generate report

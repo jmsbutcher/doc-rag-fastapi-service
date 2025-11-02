@@ -167,7 +167,7 @@ def strategy_4_full_system(query: str, top_k: int = 10) -> list:
     # Route based on query type
     if config["use_hyde"]:
         # COMPLEX query: use HyDE
-        print(f"  → {query_type.value}: Using HyDE")
+        print(f"  -> {query_type.value}: Using HyDE")
         results = searcher.hyde_search_with_reranking(
             query,
             top_k=top_k,
@@ -175,7 +175,7 @@ def strategy_4_full_system(query: str, top_k: int = 10) -> list:
         )
     else:
         # SIMPLE query: direct search
-        print(f"  → {query_type.value}: Direct search")
+        print(f"  -> {query_type.value}: Direct search")
         results = searcher.hybrid_search_with_reranking(
             query,
             top_k=top_k,
@@ -217,7 +217,7 @@ def run_strategy(
                 "num_retrieved": len(retrieved_chunk_ids)
             })
         except Exception as e:
-            print(f"  ✗ ERROR: {e}")
+            print(f"  X ERROR: {e}")
             import traceback
             traceback.print_exc()
             results.append({
@@ -232,7 +232,7 @@ def run_strategy(
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=2)
     
-    print(f"\n✓ Saved to {output_path}")
+    print(f"\nCHECK! Saved to {output_path}")
     return results
 
 
@@ -260,7 +260,7 @@ def main():
     run_strategy("4_full", strategy_4_full_system, queries, top_k=10)
     
     print("\n" + "="*70)
-    print("✓ All strategies complete!")
+    print("CHECK! All strategies complete!")
     print("="*70)
     print("\nResults saved to evaluation/retrieval_results_*.json")
     print("\nNext step: Run retrieval_evaluator.py to compute metrics")

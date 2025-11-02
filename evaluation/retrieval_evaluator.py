@@ -1,5 +1,6 @@
 """
-Retrieval Evaluator - Computes IR metrics using ground truth labels.
+Retrieval Evaluator - Computes IR (Information Retrieval) metrics using 
+ground truth labels.
 
 Metrics:
 - Precision@K: Proportion of relevant docs in top-K
@@ -231,10 +232,10 @@ def compare_strategies(strategy_names: list = ["1_baseline", "2_reranking", "3_r
             metrics_path = f"evaluation/retrieval_metrics_{strategy}.json"
             with open(metrics_path, 'w') as f:
                 json.dump(results, f, indent=2)
-            print(f"✓ Saved metrics to {metrics_path}")
+            print(f"CHECK! Saved metrics to {metrics_path}")
             
         except FileNotFoundError:
-            print(f"✗ File not found: {results_path}")
+            print(f"X File not found: {results_path}")
             continue
     
     # Print comparison table

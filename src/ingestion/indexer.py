@@ -117,7 +117,7 @@ class DocumentIndexer:
         # ! Ignore Pylance warning about missing arguments !
         index.add(embeddings) # type: ignore
 
-        print(f"✓ Built FAISS index with {index.ntotal} vectors")
+        print(f"CHECK! Built FAISS index with {index.ntotal} vectors")
         
         return index
     
@@ -141,7 +141,7 @@ class DocumentIndexer:
         # Create BM25 index
         bm25 = BM25Okapi(tokenized_docs)
         
-        print(f"✓ Built BM25 index with {len(tokenized_docs)} documents")
+        print(f"CHECK! Built BM25 index with {len(tokenized_docs)} documents")
         
         return bm25
     
@@ -194,19 +194,19 @@ class DocumentIndexer:
         # Save FAISS index
         faiss_path = self.index_dir / f"{prefix}_faiss.index"
         faiss.write_index(self.faiss_index, str(faiss_path))
-        print(f"✓ Saved FAISS index to {faiss_path}")
+        print(f"CHECK! Saved FAISS index to {faiss_path}")
         
         # Save BM25 index
         bm25_path = self.index_dir / f"{prefix}_bm25.pkl"
         with open(bm25_path, 'wb') as f:
             pickle.dump(self.bm25_index, f)
-        print(f"✓ Saved BM25 index to {bm25_path}")
+        print(f"CHECK! Saved BM25 index to {bm25_path}")
         
         # Save chunks metadata
         chunks_path = self.index_dir / f"{prefix}_chunks.json"
         with open(chunks_path, 'w', encoding='utf-8') as f:
             json.dump(self.chunks, f, indent=2, ensure_ascii=False)
-        print(f"✓ Saved chunks metadata to {chunks_path}")
+        print(f"CHECK! Saved chunks metadata to {chunks_path}")
     
     def load_indexes(self, prefix: str = "fastapi_docs") -> Tuple[faiss.Index, BM25Okapi, List[Dict]]:
         """
@@ -221,19 +221,19 @@ class DocumentIndexer:
         # Load FAISS index
         faiss_path = self.index_dir / f"{prefix}_faiss.index"
         self.faiss_index = faiss.read_index(str(faiss_path))
-        print(f"✓ Loaded FAISS index from {faiss_path}")
+        print(f"CHECK! Loaded FAISS index from {faiss_path}")
         
         # Load BM25 index
         bm25_path = self.index_dir / f"{prefix}_bm25.pkl"
         with open(bm25_path, 'rb') as f:
             self.bm25_index = pickle.load(f)
-        print(f"✓ Loaded BM25 index from {bm25_path}")
+        print(f"CHECK! Loaded BM25 index from {bm25_path}")
         
         # Load chunks
         chunks_path = self.index_dir / f"{prefix}_chunks.json"
         with open(chunks_path, 'r', encoding='utf-8') as f:
             self.chunks = json.load(f)
-        print(f"✓ Loaded {len(self.chunks)} chunks from {chunks_path}")
+        print(f"CHECK! Loaded {len(self.chunks)} chunks from {chunks_path}")
         
         return self.faiss_index, self.bm25_index, self.chunks
 
@@ -249,12 +249,12 @@ if __name__ == "__main__":
     print("Step 1: Loading documents...")
     loader = FastAPIDocsLoader()
     docs = loader.load_documents()
-    print(f"✓ Loaded {len(docs)} documents\n")
+    print(f"CHECK! Loaded {len(docs)} documents\n")
     
     print("Step 2: Chunking documents...")
     chunker = SemanticChunker(chunk_size=600, chunk_overlap=100)
     chunks = chunker.chunk_documents(docs)
-    print(f"✓ Created {len(chunks)} chunks\n")
+    print(f"CHECK! Created {len(chunks)} chunks\n")
     
     print("Step 3: Creating indexes...")
     indexer = DocumentIndexer()

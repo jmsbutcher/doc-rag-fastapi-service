@@ -19,7 +19,6 @@ from src.routing.query_router import QueryRouter
 from openai import OpenAI
 
 from dotenv import load_dotenv
-
 load_dotenv()
 
 # Initialize OpenAI client
@@ -260,10 +259,10 @@ def run_strategy(strategy_name: str, strategy_fn, queries: list):
             result["latency_seconds"] = elapsed
             results.append(result)
             
-            print(f"  ✓ Generated answer ({elapsed:.2f}s)")
+            print(f"  CHECK! Generated answer ({elapsed:.2f}s)")
             
         except Exception as e:
-            print(f"  ✗ ERROR: {e}")
+            print(f"  X ERROR: {e}")
             import traceback
             traceback.print_exc()
             results.append({
@@ -279,7 +278,7 @@ def run_strategy(strategy_name: str, strategy_fn, queries: list):
         json.dump(results, f, indent=2)
     
     avg_latency = total_time / len(queries) if queries else 0
-    print(f"\n✓ Saved to {output_path}")
+    print(f"\nCHECK! Saved to {output_path}")
     print(f"  Average latency: {avg_latency:.2f}s")
     
     return results
@@ -309,7 +308,7 @@ def main():
     run_strategy("4_full", run_qa_strategy_4, queries)
     
     print("\n" + "="*70)
-    print("✓ Q&A complete! Results saved to evaluation/")
+    print("CHECK! Q&A complete! Results saved to evaluation/")
     print("="*70)
     print("\nNext step: Run ragas_evaluator.py to compute generation metrics")
 

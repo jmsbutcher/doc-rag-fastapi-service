@@ -233,7 +233,7 @@ class SemanticChunker:
             doc_chunks = self.create_chunks_with_overlap(content, metadata)
             all_chunks.extend(doc_chunks)
             
-            print(f"✓ Chunked {metadata.get('source', 'document')}: "
+            print(f"CHECK! Chunked {metadata.get('source', 'document')}: "
                   f"{len(doc_chunks)} chunks")
         
         return all_chunks

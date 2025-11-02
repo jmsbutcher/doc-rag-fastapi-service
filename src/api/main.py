@@ -57,7 +57,7 @@ async def lifespan(app: FastAPI):
         raise ValueError("OPENAI_API_KEY not found")
     llm_client = OpenAI(api_key=api_key)
 
-    print("✓ Service ready with agentic routing!")
+    print("CHECK! Service ready with agentic routing!")
 
     yield # <-- Yield control back to FastAPI to start serving requests
 

@@ -58,7 +58,7 @@
 │  ┌─────────────────────────────────────────────────────────┐    │
 │  │  Cross-Encoder Reranker                                 │    │
 │  │  (ms-marco-MiniLM-L-6-v2)                               │    │
-│  │  Input: 50 docs → Output: Top-5 docs                    │    │
+│  │  Input: 50 docs -> Output: Top-5 docs                    │    │
 │  └─────────────────────────────────────────────────────────┘    │
 └────────────────────────┬────────────────────────────────────────┘
                          ↓
@@ -93,7 +93,7 @@
 │  - Metrics: Retrieval (Recall@5, MRR) + Generation              │
 │                                                                 │
 │  Document Ingestion (Offline)                                   │
-│  - Load docs → Semantic chunking → Embed → Index                │
+│  - Load docs -> Semantic chunking -> Embed -> Index                │
 │  - Store: FAISS index + metadata in S3                          │
 │                                                                 │
 │  Monitoring/Logging                                             │

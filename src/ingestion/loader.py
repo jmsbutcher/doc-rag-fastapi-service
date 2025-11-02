@@ -92,7 +92,7 @@ class FastAPIDocsLoader:
             
             # Skip if already downloaded (caching)
             if local_path.exists():
-                print(f"✓ Already cached: {doc_page}")
+                print(f"CHECK! Already cached: {doc_page}")
                 downloaded_files.append(local_path)
                 continue
             
@@ -107,10 +107,10 @@ class FastAPIDocsLoader:
                     f.write(response.text)
                 
                 downloaded_files.append(local_path)
-                print(f"✓ Downloaded: {doc_page}")
+                print(f"CHECK! Downloaded: {doc_page}")
                 
             except requests.RequestException as e:
-                print(f"✗ Failed to download {doc_page}: {e}")
+                print(f"X Failed to download {doc_page}: {e}")
                 continue
         
         return downloaded_files
@@ -151,7 +151,7 @@ class FastAPIDocsLoader:
                 })
                 
             except Exception as e:
-                print(f"✗ Failed to process {file_path}: {e}")
+                print(f"X Failed to process {file_path}: {e}")
                 continue
         
         return documents

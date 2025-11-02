@@ -105,7 +105,7 @@ def create_ground_truth_file(query: str, labeled_results: list, output_file: str
     with open(output_path, 'w') as f:
         json.dump(all_ground_truth, f, indent=2)
     
-    print(f"\n✓ Saved ground truth to {output_file}")
+    print(f"\nCHECK! Saved ground truth to {output_file}")
 
 
 # Interactive labeling session
@@ -143,7 +143,7 @@ if __name__ == "__main__":
     output_file = "evaluation/ground_truth.json"
     create_ground_truth_file(query, labeled_results, output_file)
     
-    print(f"\n✓ Labeled {len(labeled_results)} chunks for query: '{query}'")
+    print(f"\nCHECK! Labeled {len(labeled_results)} chunks for query: '{query}'")
     print(f"Summary:")
     print(f"  Highly Relevant (2): {sum(1 for r in labeled_results if r.get('relevance_label') == 2)}")
     print(f"  Somewhat Relevant (1): {sum(1 for r in labeled_results if r.get('relevance_label') == 1)}")

@@ -11,11 +11,13 @@ RAGAS uses LLM-as-judge to evaluate these without ground truth answers.
 import os
 import sys
 import json
+from langchain_openai import ChatOpenAI
 from pathlib import Path
 from typing import List, Dict
 import asyncio
 
-from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+load_dotenv()
 
 # Add src to path
 sys.path.append(str(Path(__file__).parent.parent / "src"))
@@ -168,7 +170,7 @@ def evaluate_generation(
     with open(output_path, 'w') as f:
         json.dump(output, f, indent=2)
     
-    print(f"\n✓ Saved results to {output_path}")
+    print(f"\nCHECK! Saved results to {output_path}")
     
     return output
 
@@ -188,8 +190,8 @@ def print_results(results: Dict):
     
     print("\n" + "="*60)
     print("\nMetric Interpretation:")
-    print("  Faithfulness       : Claims supported by context (target: ≥0.95)")
-    print("  Answer Relevancy   : Answer addresses query (target: ≥0.85)")
+    print("  Faithfulness       : Claims supported by context (target: >=0.95)")
+    print("  Answer Relevancy   : Answer addresses query (target: >=0.85)")
     print("\nNote: Using 2 metrics that don't require ground truth answers")
     print("="*60)
 
@@ -222,7 +224,7 @@ def compare_generation_strategies(strategy_names: list = ["1_baseline", "2_reran
             all_results[strategy] = results
             
         except FileNotFoundError:
-            print(f"✗ File not found: {qa_path}")
+            print(f"X File not found: {qa_path}")
             continue
     
     # Print comparison table
@@ -270,9 +272,9 @@ def compare_generation_strategies(strategy_names: list = ["1_baseline", "2_reran
         
         print("="*80)
         print("\nProduction Targets:")
-        print("  Faithfulness: ≥0.95 (hallucination rate <5%)")
-        print("  Answer Relevancy: ≥0.85")
-        print("  Context Relevancy: ≥0.75")
+        print("  Faithfulness: >=0.95 (hallucination rate <5%)")
+        print("  Answer Relevancy: >=0.85")
+        print("  Context Relevancy: >=0.75")
         print("="*80)
     
     return all_results
