@@ -14,7 +14,6 @@ import json
 from langchain_openai import ChatOpenAI
 from pathlib import Path
 from typing import List, Dict
-import asyncio
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -32,7 +31,7 @@ from ragas.metrics import (
 )
 
 
-def load_qa_results(path: str = "evaluation/qa_results.json") -> List[Dict]:
+def load_qa_results(path: str = "evaluation/results/qa_results.json") -> List[Dict]:
     """
     Load Q&A results for evaluation.
     
@@ -81,8 +80,8 @@ def prepare_ragas_dataset(qa_results: List[Dict]) -> Dataset:
 
 
 def evaluate_generation(
-    qa_results_path: str = "evaluation/qa_results.json",
-    output_path: str = "evaluation/generation_metrics.json"
+    qa_results_path: str = "evaluation/results/qa_results.json",
+    output_path: str = "evaluation/results/generation_metrics.json"
 ) -> Dict:
     """
     Evaluate generation quality using RAGAS.
@@ -110,7 +109,7 @@ def evaluate_generation(
     result = evaluate(
         dataset,
         metrics=metrics,
-        llm=ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o-mini")
+        llm=ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o-mini") # type: ignore
     )
     
     # RAGAS 0.3.x: Result object has direct attribute access
@@ -118,21 +117,21 @@ def evaluate_generation(
     try:
         # Pattern 1: Direct dictionary access
         results_dict = {
-            'faithfulness': list(result['faithfulness']),
-            'answer_relevancy': list(result['answer_relevancy'])
+            'faithfulness': list(result['faithfulness']), # type: ignore
+            'answer_relevancy': list(result['answer_relevancy']) # type: ignore
         }
     except (TypeError, KeyError):
         try:
             # Pattern 2: Access via .scores attribute
             results_dict = {
-                'faithfulness': list(result.scores['faithfulness']),
-                'answer_relevancy': list(result.scores['answer_relevancy'])
+                'faithfulness': list(result.scores['faithfulness']), # type: ignore
+                'answer_relevancy': list(result.scores['answer_relevancy']) # type: ignore
             }
         except (AttributeError, KeyError):
             # Pattern 3: Direct attribute access
             results_dict = {
-                'faithfulness': [result.faithfulness] if hasattr(result, 'faithfulness') else [0],
-                'answer_relevancy': [result.answer_relevancy] if hasattr(result, 'answer_relevancy') else [0]
+                'faithfulness': [result.faithfulness] if hasattr(result, 'faithfulness') else [0], # type: ignore
+                'answer_relevancy': [result.answer_relevancy] if hasattr(result, 'answer_relevancy') else [0] # type: ignore
             }
     
     # Build per-query results
@@ -211,8 +210,8 @@ def compare_generation_strategies(strategy_names: list = ["1_baseline", "2_reran
     
     # Evaluate each strategy
     for strategy in strategy_names:
-        qa_path = f"evaluation/qa_results_{strategy}.json"
-        metrics_path = f"evaluation/generation_metrics_{strategy}.json"
+        qa_path = f"evaluation/results/qa_results_{strategy}.json"
+        metrics_path = f"evaluation/results/generation_metrics_{strategy}.json"
         
         print(f"\nEvaluating {strategy}...")
         

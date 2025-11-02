@@ -136,7 +136,7 @@ def evaluate_retrieval(
 
 def evaluate_all_queries(
     ground_truth_path: str = "evaluation/ground_truth.json",
-    retrieval_results_path: str = "evaluation/retrieval_results.json"
+    retrieval_results_path: str = "evaluation/results/retrieval_results.json"
 ) -> Dict:
     """
     Evaluate retrieval across all queries in ground truth.
@@ -221,7 +221,7 @@ def compare_strategies(strategy_names: list = ["1_baseline", "2_reranking", "3_r
     
     # Load and evaluate each strategy
     for strategy in strategy_names:
-        results_path = f"evaluation/retrieval_results_{strategy}.json"
+        results_path = f"evaluation/results/retrieval_results_{strategy}.json"
         print(f"\nEvaluating {strategy}...")
         
         try:
@@ -229,7 +229,7 @@ def compare_strategies(strategy_names: list = ["1_baseline", "2_reranking", "3_r
             all_results[strategy] = results
             
             # Save individual results
-            metrics_path = f"evaluation/retrieval_metrics_{strategy}.json"
+            metrics_path = f"evaluation/results/retrieval_metrics_{strategy}.json"
             with open(metrics_path, 'w') as f:
                 json.dump(results, f, indent=2)
             print(f"CHECK! Saved metrics to {metrics_path}")

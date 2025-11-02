@@ -273,7 +273,7 @@ def run_strategy(strategy_name: str, strategy_fn, queries: list):
             })
     
     # Save results
-    output_path = f"evaluation/qa_results_{strategy_name}.json"
+    output_path = f"evaluation/results/qa_results_{strategy_name}.json"
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=2)
     
@@ -308,7 +308,7 @@ def main():
     run_strategy("4_full", run_qa_strategy_4, queries)
     
     print("\n" + "="*70)
-    print("CHECK! Q&A complete! Results saved to evaluation/")
+    print("CHECK! Q&A complete! Results saved to evaluation/results/")
     print("="*70)
     print("\nNext step: Run ragas_evaluator.py to compute generation metrics")
 

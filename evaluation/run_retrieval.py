@@ -228,7 +228,7 @@ def run_strategy(
             })
     
     # Save results
-    output_path = f"evaluation/retrieval_results_{strategy_name}.json"
+    output_path = f"evaluation/results/retrieval_results_{strategy_name}.json"
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=2)
     
@@ -262,7 +262,7 @@ def main():
     print("\n" + "="*70)
     print("CHECK! All strategies complete!")
     print("="*70)
-    print("\nResults saved to evaluation/retrieval_results_*.json")
+    print("\nResults saved to evaluation/results/retrieval_results_*.json")
     print("\nNext step: Run retrieval_evaluator.py to compute metrics")
 
 

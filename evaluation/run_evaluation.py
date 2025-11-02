@@ -77,8 +77,8 @@ def generate_report():
     generation_metrics = {}
     
     for strategy in strategies:
-        retrieval_path = f"evaluation/retrieval_metrics_{strategy}.json"
-        generation_path = f"evaluation/generation_metrics_{strategy}.json"
+        retrieval_path = f"evaluation/results/retrieval_metrics_{strategy}.json"
+        generation_path = f"evaluation/results/generation_metrics_{strategy}.json"
         
         retrieval_metrics[strategy] = load_json(retrieval_path)
         generation_metrics[strategy] = load_json(generation_path)
@@ -86,8 +86,7 @@ def generate_report():
     # Create report
     report = []
     report.append("# RAG System Evaluation Report\n")
-    report.append(f"Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
-    report.append("="*70 + "\n\n")
+    report.append(f"#### Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
     
     # Executive Summary
     report.append("## Executive Summary\n\n")
@@ -233,17 +232,9 @@ def generate_report():
                 report.append(f"  - Answer Relevancy: {relevancy:.3f} (target: >=0.85)\n")
             report.append("\n")
     
-    report.append("## Next Steps\n\n")
-    report.append("1. **Deploy full system** with agentic routing and HyDE\n")
-    report.append("2. **Monitor in production** to validate evaluation results\n")
-    report.append("3. **Consider additional optimizations**:\n")
-    report.append("   - Fine-tune embeddings on domain data\n")
-    report.append("   - Experiment with different chunking strategies\n")
-    report.append("   - Add semantic caching for common queries\n")
-    report.append("4. **Document findings** in portfolio README and blog post\n")
     
     # Save report
-    report_path = "evaluation/EVALUATION_REPORT.md"
+    report_path = f"evaluation/EVALUATION_REPORT_{time.strftime('%Y-%m-%d_%H-%M-%S')}.md"
     with open(report_path, 'w') as f:
         f.writelines(report)
     
@@ -277,28 +268,28 @@ def main():
     input("Press Enter to start...")
     
     # Step 1: Run retrieval
-    # if not run_step(
-    #     "1. Run Retrieval (All 4 Strategies)",
-    #     "evaluation/run_retrieval.py"
-    # ):
-    #     print("\nX Failed at retrieval step")
-    #     return
+    if not run_step(
+        "1. Run Retrieval (All 4 Strategies)",
+        "evaluation/run_retrieval.py"
+    ):
+        print("\nX Failed at retrieval step")
+        return
     
-    # # Step 2: Evaluate retrieval
-    # if not run_step(
-    #     "2. Compute Retrieval Metrics",
-    #     "evaluation/retrieval_evaluator.py"
-    # ):
-    #     print("\nX Failed at retrieval evaluation step")
-    #     return
+    # Step 2: Evaluate retrieval
+    if not run_step(
+        "2. Compute Retrieval Metrics",
+        "evaluation/retrieval_evaluator.py"
+    ):
+        print("\nX Failed at retrieval evaluation step")
+        return
     
-    # # Step 3: Run Q&A pipeline
-    # if not run_step(
-    #     "3. Run Q&A Pipeline (All 4 Strategies)",
-    #     "evaluation/run_qa.py"
-    # ):
-    #     print("\nX Failed at Q&A step")
-    #     return
+    # Step 3: Run Q&A pipeline
+    if not run_step(
+        "3. Run Q&A Pipeline (All 4 Strategies)",
+        "evaluation/run_qa.py"
+    ):
+        print("\nX Failed at Q&A step")
+        return
     
     # Step 4: Evaluate generation with RAGAS
     if not run_step(
@@ -317,7 +308,7 @@ def main():
     print("EVALUATION COMPLETE!")
     print("="*70)
     print(f"\nTotal time: {elapsed/60:.1f} minutes")
-    print("\nResults saved to evaluation/")
+    print("\nResults saved to evaluation/results/")
     print("  - retrieval_results_*.json (4 strategies)")
     print("  - retrieval_metrics_*.json (4 strategies)")
     print("  - qa_results_*.json (4 strategies)")
