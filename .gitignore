@@ -15,8 +15,7 @@ wheels/
 # Data
 data/raw/
 data/indexes/
-evaluation/reports/
-evaluation/results/
+evaluation/results/*.json
 evaluation/*.json
 
 # Other
