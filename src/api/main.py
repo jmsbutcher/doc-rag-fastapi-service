@@ -2,8 +2,8 @@
 FastAPI service for RAG Q&A over FastAPI documentation.
 """
 
-import os
 import sys
+import mangum
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from contextlib import asynccontextmanager
@@ -11,12 +11,10 @@ from openai import OpenAI
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional
 
-
-# Import our components
-
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
+from api_key import get_openai_key
 from ingestion.indexer import DocumentIndexer
 from retrieval.hybrid_search import HybridSearcher
 from routing.query_router import QueryRouter
@@ -52,16 +50,13 @@ async def lifespan(app: FastAPI):
     router = QueryRouter(model="gpt-4o-mini")  # Use a fast/cheap model for classification
 
     print("Initializing LLM client...")
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise ValueError("OPENAI_API_KEY not found")
-    llm_client = OpenAI(api_key=api_key)
+    llm_client = OpenAI(api_key=get_openai_key())
 
     print("CHECK! Service ready with agentic routing!")
 
     yield # <-- Yield control back to FastAPI to start serving requests
 
-    # Optional shutdown logic can go here (close clients, flush metrics, etc.)
+    # Optional shutdown logic can go here if needed (close clients, flush metrics, etc.)
 
 
 # Initialize FastAPI app with lifespan handler
@@ -71,6 +66,9 @@ app = FastAPI(
     version="0.2.0",
     lifespan=lifespan,
 )
+
+# AWS Lambda handler
+handler = mangum.Mangum(app)
 
 
 # Request/Response models

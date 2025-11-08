@@ -4,11 +4,8 @@ Agentic query router that classifies queries and selects optimal retrieval strat
 from enum import Enum
 from typing import Dict, Tuple
 from openai import OpenAI
-import os
-from dotenv import load_dotenv
 from pydantic import BaseModel
-
-load_dotenv()
+from api_key import get_openai_key
 
 
 class QueryType(str, Enum):
@@ -22,7 +19,6 @@ class QueryClassification(BaseModel):
     """Result of query classification."""
     query_type: QueryType
     reasoning: str
-    confidence: str = "high"  # high, medium, low
 
 
 class QueryRouter:
@@ -39,14 +35,9 @@ class QueryRouter:
         Args:
             model: LLM model to use for classification (cheap/fast model is fine)
         """
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY not found")
-        
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=get_openai_key())
         self.model = model
         
-        # The classifier prompt we designed together
         self.classifier_prompt = """You are a query analyzer for a technical documentation system.
 
 Classify each query as SIMPLE, COMPLEX, or MULTI_PART to optimize retrieval strategy.
@@ -105,24 +96,10 @@ Example: SIMPLE | specific technical term with focused scope"""
                     {"role": "system", "content": "You are a precise query classifier."},
                     {"role": "user", "content": prompt}
                 ],
-                #max_completion_tokens=100 # For model gpt-5-nano
-                temperature=0.1,  # Low temperature for consistent classification (For model gpt-4o-mini)
-                max_tokens=100 # (For model gpt-4o-mini)
+                temperature=0.1,  # Low temperature for consistent classification
+                max_tokens=100
             )
 
-            #---------------------------
-            # DEBUG
-            # response = self.client.chat.completions.create(
-            #     model=self.model,
-            #     messages=[
-            #         {"role": "system", "content": "You are an assistant."},
-            #         {"role": "user", "content": "Hello"}
-            #     ],
-            #     max_completion_tokens=100 # For model gpt-5-nano
-            # )
-            # print(f"\nClassification response: {response}\n")  # Debug print
-            #---------------------------
-            
             # Parse response
             result = response.choices[0].message.content.strip() # type: ignore
     
@@ -236,12 +213,3 @@ if __name__ == "__main__":
     query_type, strategy, config = router.route_query(test_queries[0])
     print(f"Config: {config}")
     print("=" * 60)
-
-    # for query in test_queries:
-    #     print(f"\nQuery: '{query}'")
-    #     print("-" * 60)
-        
-    #     query_type, strategy, config = router.route_query(query)
-        
-    #     print(f"Config: {config}")
-    #     print("=" * 60)

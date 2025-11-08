@@ -8,26 +8,21 @@ Metrics:
 
 RAGAS uses LLM-as-judge to evaluate these without ground truth answers.
 """
-import os
 import sys
 import json
 from langchain_openai import ChatOpenAI
 from pathlib import Path
 from typing import List, Dict
 
-from dotenv import load_dotenv
-load_dotenv()
-
 # Add src to path
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
+from api_key import get_openai_key
 from datasets import Dataset
 from ragas import evaluate
 from ragas.metrics import (
     faithfulness,
     answer_relevancy
-    # Note: context_precision requires ground truth 'reference' answers
-    # We only have retrieval relevance labels, not answer references
 )
 
 
@@ -109,7 +104,7 @@ def evaluate_generation(
     result = evaluate(
         dataset,
         metrics=metrics,
-        llm=ChatOpenAI(api_key=os.getenv("OPENAI_API_KEY"), model="gpt-4o-mini") # type: ignore
+        llm=ChatOpenAI(api_key=get_openai_key(), model="gpt-4o-mini") # type: ignore
     )
     
     # RAGAS 0.3.x: Result object has direct attribute access

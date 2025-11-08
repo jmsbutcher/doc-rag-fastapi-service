@@ -1,7 +1,6 @@
 """
 Create and manage FAISS vector index and BM25 keyword index.
 """
-import os
 import json
 import pickle
 from pathlib import Path
@@ -11,6 +10,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import faiss
 from rank_bm25 import BM25Okapi
+from api_key import get_openai_key
 
 load_dotenv()
 
@@ -34,10 +34,7 @@ class DocumentIndexer:
         self.index_dir.mkdir(parents=True, exist_ok=True)
         
         # Initialize OpenAI client
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY not found in environment")
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=get_openai_key())
         
         # Will hold our indexes
         self.faiss_index = None
@@ -132,7 +129,6 @@ class DocumentIndexer:
             BM25 index
         """
         # Tokenize documents (simple whitespace split)
-        # In production, you'd use proper tokenization
         tokenized_docs = [
             chunk['content'].lower().split()
             for chunk in chunks

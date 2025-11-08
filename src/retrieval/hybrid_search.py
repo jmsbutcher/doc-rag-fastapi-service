@@ -14,11 +14,9 @@ import sys
 # Add src directory to path so we can import from src package
 # This allows running the script from the top-level directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+
 from src.retrieval.reranker import CrossEncoderReranker
-
-from dotenv import load_dotenv
-
-load_dotenv()
+from api_key import get_openai_key
 
 
 class HybridSearcher:
@@ -40,10 +38,7 @@ class HybridSearcher:
         self.embedding_model = embedding_model
         
         # Initialize OpenAI client for query embeddings
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY not found in environment")
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=get_openai_key())
         
         # Precompute tokenized chunks for BM25
         self.tokenized_chunks = [
@@ -327,26 +322,7 @@ class HybridSearcher:
             List of reranked chunk dicts
         """
 
-        # from retrieval.hyde import HyDEGenerator
-        
-        # # Generate hypothetical answer
-        # hyde_gen = HyDEGenerator()
-        # hypothetical_answer = hyde_gen.generate_hypothetical_answer(query)
-        
-        # # Retrieve candidates using hypothetical answer
-        # print(f"[HyDE Search] Retrieving {retrieve_k} candidates")
-        # bm25_results = self.bm25_search(hypothetical_answer, top_k=retrieve_k//2)
-        # vector_results = self.vector_search(hypothetical_answer, top_k=retrieve_k//2)
-        # fused_results = self.reciprocal_rank_fusion([bm25_results, vector_results])
-        
-        # candidates = []
-        # for doc_id, rrf_score in fused_results[:retrieve_k]:
-        #     chunk = self.chunks[doc_id].copy()
-        #     chunk['relevance_score'] = rrf_score
-        #     candidates.append(chunk)
-
         candidates = self.hyde_search(query, top_k, retrieve_k // 2)
-        
 
         # Rerank using ORIGINAL query (not hypothetical answer)
         # This is important - we want relevance to the actual question

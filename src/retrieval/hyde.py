@@ -134,10 +134,7 @@ with HyDE:
 """
 from typing import List
 from openai import OpenAI
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
+from api_key import get_openai_key
 
 
 class HyDEGenerator:
@@ -155,11 +152,7 @@ class HyDEGenerator:
         Args:
             model: LLM to use for generating hypothetical answers
         """
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY not found")
-        
-        self.client = OpenAI(api_key=api_key)
+        self.client = OpenAI(api_key=get_openai_key())
         self.model = model
         
         # Prompt for generating hypothetical answers
