@@ -15,8 +15,8 @@ A production-grade Retrieval-Augmented Generation (RAG) system for answering que
 
 Systematic evaluation across 10 test queries demonstrates measurable improvements:
 
-| Metric | Baseline | +Reranking | +Routing+HyDE | Improvement |
-|--------|----------|------------|---------------|-------------|
+| Metric | Baseline | +Reranking | +Routing | +HyDE | Improvement |
+|--------|----------|------------|----------|-------|-------------|
 | **Retrieval Quality** |
 | precision@5  | 0.640 | 0.680 | 0.680 | 0.700 | **+9.4%** |
 | recall@5     | 0.313 | 0.366 | 0.366 | 0.375 | **+19.9%** |
@@ -255,6 +255,7 @@ browser to use the interactive FastAPI interface. (Under POST /query, click
 "Try it out", edit the "query" field in the request body, then click 
 "Execute")
 
+Example response:
 ```bash
 {
   "query": "What are path parameters in FastAPI?",
@@ -281,6 +282,15 @@ browser to use the interactive FastAPI interface. (Under POST /query, click
       "relevance_score": 0.029850746268656716
     },
     {
+      "source": "tutorial\\path-params.md",
+      "url": "https://fastapi.tiangolo.com/path-params/",
+      "relevance_score": 0.01639344262295082
+    }
+  ],
+  "query_type": "SIMPLE",
+  "retrieval_stategy": "Direct hybrid search - fast retrieval for clear queries",
+  "reasoning": "specific technical term with focused scope"
+}
 ```
 
 
@@ -288,7 +298,7 @@ browser to use the interactive FastAPI interface. (Under POST /query, click
 
 ### Ground Truth Creation
 - Manually labeled 10 diverse test queries
-- 10 - 30 document chunks per query rated 0 (not relevant), 1 (somewhat relevant), 2 (highly relevant)
+- 10 - 30 document chunks per query rated 0 (not relevant), 1 (somewhat relevant), or 2 (highly relevant)
 - Covers simple factual queries, complex conceptual queries, and multi-part questions
 
 ### Metrics Tracked
