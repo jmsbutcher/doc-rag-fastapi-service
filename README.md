@@ -6,7 +6,7 @@ A production-grade Retrieval-Augmented Generation (RAG) system for answering que
 ## Project Highlights
 
 - **Hybrid Search**: Combines BM25 keyword matching with semantic vector search
-- **Cross-Encoder Reranking**: Improves retrieval precision by 19.6%
+- **Cross-Encoder Reranking**: Improves retrieval recall by 16.9% and answer relevancy by 13.9%
 - **Agentic Query Routing**: Automatically classifies queries and selects optimal retrieval strategy
 - **HyDE for Complex Queries**: Generates hypothetical documents to bridge vocabulary gaps
 - **Evaluation**: Ground truth labeling + RAGAS metrics for production-readiness validation
@@ -26,7 +26,11 @@ Systematic evaluation across 10 test queries demonstrates measurable improvement
 | faithfulness      | 0.874 | 0.845 | 0.795 | 0.825 | -5.6% |
 | answer_relevancy  | 0.660 | 0.752 | nan | 0.943 | **+42.8%** |
 
-**Key Finding**: Reranking provided the highest impact improvement (+16.9% recall), while HyDE improved ranking quality for complex queries (+6.6% NDCG and +25.4% relevancy).
+**Key Findings**: 
+
+Reranking provided the highest impact improvement on retrieval recall (+16.9%), while HyDE provided the highest improvement on answer relevancy for complex queries (+25.4%).
+
+Counterintuitively, reranking and Hyde *decreased* answer faithfulness slightly (The hallucination rate increased). A possible explanation is that with less relevant context, the LLM has no choice but to reference that poor context directly (high faithfulness, low relevancy), but with highly relevant context, an LLM is "put into the correct frame of mind" and is therefore more likely to "fill in" the rest of the information on the topic that it already knows in its weights (low faithfulness, high relevancy). I expect this could be mitigated by adding more emphasis to the system prompt telling the LLM to answer the query *strictly using the information provided in the context* or by adding a verification step to the flow. I may try this in a future project.
 
 
 
