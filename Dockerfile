@@ -18,5 +18,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ${LAMBDA_TASK_ROOT}/src/
 COPY data/ ${LAMBDA_TASK_ROOT}/data/
 
+# Expose port
+EXPOSE 8000
+
 # Run application
 CMD ["src.api.main.handler"]

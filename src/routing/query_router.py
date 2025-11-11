@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Dict, Tuple
 from openai import OpenAI
 from pydantic import BaseModel
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 
 
 class QueryType(str, Enum):

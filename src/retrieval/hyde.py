@@ -134,7 +134,7 @@ with HyDE:
 """
 from typing import List
 from openai import OpenAI
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 
 
 class HyDEGenerator:

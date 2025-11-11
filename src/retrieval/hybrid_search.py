@@ -16,7 +16,7 @@ import sys
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
 
 from src.retrieval.reranker import CrossEncoderReranker
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 
 
 class HybridSearcher:

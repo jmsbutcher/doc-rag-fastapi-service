@@ -17,7 +17,7 @@ from typing import List, Dict
 # Add src to path
 sys.path.append(str(Path(__file__).parent.parent / "src"))
 
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 from datasets import Dataset
 from ragas import evaluate
 from ragas.metrics import (

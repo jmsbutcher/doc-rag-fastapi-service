@@ -13,7 +13,7 @@ from typing import List
 # # This allows running the script from the top-level directory
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 from src.ingestion.indexer import DocumentIndexer
 from src.retrieval.hybrid_search import HybridSearcher
 from src.routing.query_router import QueryRouter

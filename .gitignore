@@ -11,6 +11,10 @@ wheels/
 
 # Environment variables
 .env
+response.json
+ssm-policy.json
+test-payload.json
+trust-policy.json
 
 # Data
 data/raw/

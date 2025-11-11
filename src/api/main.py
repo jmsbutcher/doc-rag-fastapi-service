@@ -14,7 +14,7 @@ from typing import List, Dict, Optional
 from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 from ingestion.indexer import DocumentIndexer
 from retrieval.hybrid_search import HybridSearcher
 from routing.query_router import QueryRouter

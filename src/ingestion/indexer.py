@@ -10,7 +10,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import faiss
 from rank_bm25 import BM25Okapi
-from api_key import get_openai_key
+from src.api_key import get_openai_key
 
 load_dotenv()
 
